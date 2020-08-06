@@ -1,7 +1,7 @@
 /* globals Sammy */
 
 import home from './controllers/home.js';
-import movie, {create, myMovies, editMyMovie, movieToDelete, deleteMyMovie} from './controllers/movie.js';
+import movie, {create, myMovies, editMyMovie, deleteMyMovie} from './controllers/movie.js';
 import movies from './controllers/cinema.js';
 import login, {logme, logout} from './controllers/login.js';
 import register, {newRegister} from './controllers/register.js';
@@ -34,11 +34,10 @@ window.addEventListener('load', () => {
         });
         this.get('#/mymovies', myMovies);
         this.get('#/edit/:id', editMyMovie);
-        this.put('#/edit/:id', (ctx) => {
+        this.post('#/edit/:id', (ctx) => {
             editMyMovie.call(ctx);
         });
-        this.get('#/delete/:id', movieToDelete);
-        this.post('#/delete/:id', deleteMyMovie);
+        this.get('#/delete/:id', deleteMyMovie);
 
         // Login page
         this.get('#/login', login);

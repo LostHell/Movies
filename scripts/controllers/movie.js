@@ -56,29 +56,15 @@ export async function editMyMovie(currentMovie) {
     this.partial('./templates/movie/edit.hbs', data);
 }
 
-export async function movieToDelete(currentMovie) {
+export async function deleteMyMovie() {
     this.partials = {
         header: await this.load('./templates/common/header.hbs'),
         footer: await this.load('./templates/common/footer.hbs'),
     }
-
-    const movie = await getMovieById(currentMovie.params.id);
-
+    const movieId = this.params.id;
+    const movie = await deleteMovie(movieId);
     const data = Object.assign({movie}, this.app.userData)
 
-    this.partial('./templates/movie/delete.hbs', data);
-}
-
-export async function deleteMyMovie(objectId) {
-    this.partials = {
-        header: await this.load('./templates/common/header.hbs'),
-        footer: await this.load('./templates/common/footer.hbs'),
-    }
-    console.log(objectId)
-    const movie = await deleteMovie(objectId);
-
-    console.log(movie)
-    const data = Object.assign({movie}, this.app.userData)
-
-    this.partial('./templates/movie/delete.hbs', data);
+    this.partial('./templates/movie/mymovies.hbs', data);
+    this.redirect('#/mymovies');
 }
